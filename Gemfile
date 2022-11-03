@@ -50,10 +50,38 @@ gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+gem "devise", "~> 4.8"
+gem 'activestorage-validator'
+gem 'active_storage_validations'
+gem "image_processing", ">= 1.2"
+gem 'pundit', '~> 2.1.0'
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "rspec"
+  gem 'rspec-rails', '~> 6.0', '>= 6.0.1'
+  gem 'factory_bot_rails', '~> 6.2.0'
+  gem 'faker', '~> 2.19.0'
+end
+
+group :test do
+  # database_cleaner: A set of gems containing strategies for cleaning your database in Ruby.
+  # @see: { https://github.com/DatabaseCleaner/database_cleaner }
+  gem 'database_cleaner', '2.0.1'
+
+  # shoulda-matchers: A minitest-compatible one-liners to test common Rails functionality.
+  # @see: { https://github.com/thoughtbot/shoulda-matchers }
+  gem 'shoulda-matchers', '~> 5.0'
+
+  # simplecov: A code coverage analysis tool for Ruby.
+  # @see: { https://github.com/simplecov-ruby/simplecov }
+  gem 'simplecov'
+
+  # fuubar: A instafailing RSpec formatter that uses a progress bar dots as feedback.
+  # @see: { https://github.com/thekompanee/fuubar }
+  gem 'fuubar'
 end
 
 group :development do
@@ -68,4 +96,4 @@ group :development do
 end
 
 
-gem "devise", "~> 4.8"
+

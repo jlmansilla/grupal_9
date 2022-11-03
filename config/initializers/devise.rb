@@ -5,7 +5,7 @@
 # are not: uncommented lines are intended to protect your configuration from
 # breaking changes in upgrades (i.e., in the event that future versions of
 # Devise change the default values for those options).
-#
+
 class TurboFailureApp < Devise::FailureApp
   def respond
     if request_format == :turbo_stream
@@ -27,13 +27,27 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '5f668337821a31bc31644a86027e6d84d35db0e552f93f26fe69174384c08700ef9668e3c93459fac16c5e3e4a08df8853aa49d7408d3063dd5273d4f3d4bbb3'
+  # config.secret_key = 'ee969bfb2dd6b23e441c14849baf13b7491c1b91bbb45f1fc7c2cc1fecb884481794bfe996901564412bffc5bd082e451ae6b8de2a02ff3e828ae5f903fdd463'
+  config.parent_controller = 'TurboDeviseController'
+  
+  # ...
 
+  # ==> Navigation configuration
+  # ...
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
+
+  # ...
+
+  # ==> Warden configuration
+  # ...
+  config.warden do |manager|
+    manager.failure_app = TurboFailureApp
+  #   manager.intercept_401 = false
+  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
+  end
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
-  # Configure the parent class to the devise controllers.
-  config.parent_controller = 'TurboDeviseController'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -141,7 +155,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '63d7d5769408c9f558944137927778bde46f68f9b4af95e15467c59e6a7f90189594eea598bc609fec82639cad7debd9025feb2cf146996e18111de5addc5497'
+  # config.pepper = '612133c2c16dcc62146c2b0d8d1c30e0dae6ce68caef83c38e3f5168a2ae397a0414fff9bc055bca165524d836df55abae2908afcf167ee4fc4a32df8695fd98'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -274,8 +288,6 @@ Devise.setup do |config|
   # :html, should redirect to the sign in page when the user does not have
   # access, but formats like :xml or :json, should return 401.
   #
-  config.navigational_formats = ['*/*', :html, :turbo_stream]
-
   # If you have any extra navigational formats, like :iphone or :mobile, you
   # should add them to the navigational formats lists.
   #
@@ -294,11 +306,10 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  config.warden do |manager|
-    manager.failure_app = TurboFailureApp  
-    # manager.intercept_401 = false
-    # manager.default_strategies(scope: :user).unshift :some_external_strategy
-  end
+  # config.warden do |manager|
+  #   manager.intercept_401 = false
+  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
+  # end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
